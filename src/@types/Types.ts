@@ -1,7 +1,7 @@
-import ReactElement from 'react'
+import React from 'react'
 
 export interface CardProps {
-    children: ReactElement;
+    children: React.ReactNode;
     bg?: string;
 }
 
