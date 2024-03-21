@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Job } from "./Job";
-import {JobProps} from '../@types/Types'
+import { JobProps } from "../@types/Types";
 const JSON_SERVER_JOBS_URL = "http://localhost:5000/jobs";
 
-const JobListings = () => {
+const JobListings = ({ isHome = false }) => {
     const [jobData, setJobData] = useState<JobProps[]>([]);
-    const recentJobs = jobData.slice(0, 3);
+    const jobListings = isHome ? jobData.slice(0, 3) : jobData;
     useEffect(() => {
         axios
             .get(JSON_SERVER_JOBS_URL)
@@ -25,7 +25,7 @@ const JobListings = () => {
                     Browse Jobs
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {recentJobs.map((job: JobProps) => (
+                    {jobListings.map((job: JobProps) => (
                         <Job
                             key={job.id}
                             id={job.id}

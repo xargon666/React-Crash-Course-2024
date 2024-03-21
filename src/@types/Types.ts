@@ -15,6 +15,6 @@ export interface JobProps {
 }
 
 export interface HeroProps {
-    title: string;
-    subtitle: string;
+    title?: string;
+    subtitle?: string;
 }
