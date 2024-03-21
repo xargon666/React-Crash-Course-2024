@@ -20,7 +20,7 @@ const router = createBrowserRouter(
         <Route path="/" element={<MainLayout />}>
             <Route index element={<HomePage />} />
             <Route path='/jobs' element={<JobsPage />} />
-            {/* asterisk is used as a catch-all, a default route for any address without a direct link */}
+            {/* path=/* (asterisk) is used as a catch-all, a default route for any address without a direct link */}
             <Route path='/*' element={<NotFoundPage />} />
         </Route>
     )
