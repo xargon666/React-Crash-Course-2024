@@ -27,37 +27,38 @@ import { JobPage, jobLoader } from "./pages";
 // We are also wrapping our app with a Router, which allows us to visit different pages!
 
 const App = () => {
+    // CRUD FUNCTIONS ********************************************************************************
     // CRUD Functions are kept in the App component, so that any component that needs to use them
     // Can simpley pass down props into the App comp and make use of the same functions.
 
     // CRUD POST FUNCTION - Add New Job
     // the param for this function comes from the JobPage component
     // We are calling the addJob function from the JobPage component by way of prop drilling
+    // ******************************
+    // Traditional async/await fetch method
+    // ******************************
+    // const addJob = async (newJob) => {
+    //     const res = await fetch("api/jobs", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "applicaiton/json",
+    //         },
+    //         body: JSON.stringify(...newJob, id: uuid()),
+    //     });
+    //     return;
+    // ******************************
+    // The same thing using axios!!!!
+    // ******************************
     const addJob = (newJob: JobProps) => {
-        // ******************************
-        // Traditional async/await fetch method
-        // ******************************
-        // const addJob = async (newJob) => {
-        //     const res = await fetch("api/jobs", {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "applicaiton/json",
-        //         },
-        //         body: JSON.stringify(...newJob, id: uuid()),
-        //     });
-        //     return;
-        // ******************************
-        // The same thing using axios!!!!
-        // ******************************
         return axios
-        .post("/api/jobs", { ...newJob, id: uuid() })
-        .then(()=> toast.success("Job added successfully"))
-        .catch((err)=>toast.error(err.message));
+            .post("/api/jobs", { ...newJob, id: uuid() })
+            .then(() => toast.success("Job added successfully"))
+            .catch((err) => toast.error(err.message));
     };
 
     const updateJob = (job: JobProps) => {
-        console.log(job)
-        const edit = (job:JobProps) => {
+        console.log(job);
+        const edit = (job: JobProps) => {
             axios
                 .put(`/api/jobs/${job.id}`, job)
                 .then(() => toast.success("Job updated successfully"))
@@ -76,8 +77,7 @@ const App = () => {
         del();
     };
 
-    // ********************************************************************************
-    // Router
+    // ROUTER ********************************************************************************
     // Used for providing html routes to different pages/components!
     // With these routes it is possible to navigate to specific parts of the site, including dynamic addresses
     const router = createBrowserRouter(
@@ -89,15 +89,16 @@ const App = () => {
                     path="/add-job"
                     element={<AddJobPage addJob={addJob} />}
                 />
+                
                 {/* The ":" symbol means the value is dynamic */}
-                <Route
-                    path="/jobs/:id"
-                    element={<JobPage deleteJob={deleteJob} />}
-                    loader={jobLoader}
-                />
                 <Route
                     path="/edit-job/:id"
                     element={<EditJobPage updateJob={updateJob} />}
+                    loader={jobLoader}
+                />
+                <Route
+                    path="/jobs/:id"
+                    element={<JobPage deleteJob={deleteJob} />}
                     loader={jobLoader}
                 />
 
@@ -107,6 +108,6 @@ const App = () => {
         )
     );
     return <RouterProvider router={router} />;
-};
+}; // END OF APP
 
 export default App;
