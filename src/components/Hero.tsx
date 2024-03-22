@@ -1,4 +1,4 @@
-import { HeroProps } from "../@types/Types";
+import { HeroProps } from "../@types";
 
 const Hero = ({
     title = "placeholder title",

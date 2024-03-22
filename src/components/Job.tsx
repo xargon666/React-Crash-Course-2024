@@ -1,4 +1,4 @@
-import { JobProps } from "../@types/Types";
+import { JobProps } from "../@types";
 import { useState } from "react";
 export const Job = ({
     id,
@@ -13,9 +13,11 @@ export const Job = ({
     const [showFullDescription, setShowFullDescription] = useState(false);
 
     if (!showFullDescription) {
-        description.charAt(89) === " "
-            ? (description = `${description.substring(0, 89)}...`)
-            : (description = `${description.substring(0, 90)}...`);
+        description !== undefined
+            ? description.charAt(89) === " "
+                ? (description = `${description.substring(0, 89)}...`)
+                : (description = `${description.substring(0, 90)}...`)
+            : (description = "Job Description Missing");
     }
 
     return (
@@ -42,7 +44,7 @@ export const Job = ({
                         {location}
                     </div>
                     <a
-                        href={`/job/${id}`}
+                        href={`/jobs/${id}`}
                         className="h-[36px] bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-center text-sm"
                     >
                         Read More

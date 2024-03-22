@@ -1,11 +1,11 @@
 import JobListings from "../components/JobListings";
 
 const JobsPage = () => {
-  return (
-    <>
-<JobListings/>
-    </>
-  )
-}
+    return (
+        <>
+            <JobListings />
+        </>
+    );
+};
 
-export default JobsPage
+export default JobsPage;

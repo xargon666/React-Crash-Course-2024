@@ -2,14 +2,18 @@ import axios from "axios";
 import Spinner from "./Spinner";
 import { useState, useEffect } from "react";
 import { Job } from "./Job";
-import { JobProps } from "../@types/Types";
-const JSON_SERVER_JOBS_URL = "http://localhost:5000/jobs";
+import { JobProps } from "../@types";
 
-const JobListings = ({ isHome = false }) => {
+const JobListings = ({ isHome = false, }) => {
+    // Using a feature of json-server we can limit the results to 3 with '?_limit=3' suffix
+    // Additionally we have made a proxy route in the vite.config.ts file!!!
+    // This allows us to substitute the URL for the json-server with the '/api/ path
+    // Now if the json server URL is changed we need only update the one location.
+    const JSON_SERVER_JOBS_URL = isHome
+        ? "/api/jobs?_limit=3"
+        : `/api/jobs`;
     const [jobData, setJobData] = useState<JobProps[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    const jobListings = isHome ? jobData.slice(0, 3) : jobData;
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         axios
@@ -32,19 +36,19 @@ const JobListings = ({ isHome = false }) => {
                 {loading ? (
                     <Spinner loading={loading} />
                 ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {jobListings.map((job: JobProps) => (
-                                <Job
-                                    key={job.id}
-                                    id={job.id}
-                                    type={job.type}
-                                    title={job.title}
-                                    description={job.description}
-                                    salary={job.salary}
-                                    location={job.location}
-                                />
-                            ))}
-                        </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {jobData.map((job: JobProps) => (
+                            <Job
+                                key={job.id}
+                                id={job.id}
+                                type={job.type}
+                                title={job.title}
+                                description={job.description}
+                                salary={job.salary}
+                                location={job.location}
+                            />
+                        ))}
+                    </div>
                 )}
             </div>
         </section>
