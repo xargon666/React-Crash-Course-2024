@@ -27,11 +27,11 @@ import { JobPage, jobLoader } from "./pages";
 // We are also wrapping our app with a Router, which allows us to visit different pages!
 
 const App = () => {
-    // CRUD FUNCTIONS ********************************************************************************
+    // CRUD FUNCTIONS *****************************************************************************
     // CRUD Functions are kept in the App component, so that any component that needs to use them
     // Can simpley pass down props into the App comp and make use of the same functions.
 
-    // CRUD POST FUNCTION - Add New Job
+    // CRUD POST FUNCTION - Add New Job ===========================================================
     // the param for this function comes from the JobPage component
     // We are calling the addJob function from the JobPage component by way of prop drilling
     // ******************************
@@ -56,6 +56,7 @@ const App = () => {
             .catch((err) => toast.error(err.message));
     };
 
+    // CRUD PUT FUNCTION - Edit a Job =============================================================
     const updateJob = (job: JobProps) => {
         return axios
             .put(`/api/jobs/${job.id}`, job)
@@ -63,6 +64,7 @@ const App = () => {
             .catch((err) => toast.error(err.message));
     };
 
+    // CRUD DELETE FUNCTION - Delete a Job ========================================================
     const deleteJob = (jobId: string) => {
         return axios
             .delete(`/api/jobs/${jobId}`)
@@ -72,14 +74,16 @@ const App = () => {
 
     // ROUTER ********************************************************
     // Used for providing html routes to different pages/components!
-    // With these routes it is possible to navigate to specific parts of the site, including dynamic addresses
+    // With these routes it is possible to navigate to specific parts of the site, 
+    // including dynamic addresses
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path="/" element={<MainLayout />}>
                 <Route index element={<HomePage />} />
                 <Route path="/jobs" element={<JobsPage />} />
 
-                {/* Note that the prop names must match what is in the end component, and won't throw an error if there is a mismatch... */}
+                {/* Note that the prop names must match what is in the end component, 
+                and won't throw an error if there is a mismatch... */}
                 <Route
                     path="/add-job"
                     element={<AddJobPage addJobSubmit={addJob} />}
@@ -97,7 +101,8 @@ const App = () => {
                     loader={jobLoader}
                 />
 
-                {/* "path=/*" (asterisk) is used as a catch-all, a default route for any address without a direct link */}
+                {/* "path=/*" (asterisk) is used as a catch-all, 
+                a default route for any address without a direct link */}
                 <Route path="/*" element={<NotFoundPage />} />
             </Route>
         )
