@@ -1,7 +1,9 @@
+// Module Imports
 import axios from "axios";
 import { v4 as uuid } from "uuid";
 import { toast } from "react-toastify";
-// Router
+
+// Router Imports
 import {
     Route,
     createBrowserRouter,
@@ -16,12 +18,17 @@ import { JobProps } from "./@types";
 import MainLayout from "./layouts/MainLayout";
 
 // Page Imports
-import { HomePage } from "./pages";
-import { JobsPage } from "./pages";
-import { AddJobPage } from "./pages";
-import { EditJobPage } from "./pages";
-import { NotFoundPage } from "./pages";
-import { JobPage, jobLoader } from "./pages";
+// Note: I've used an index.ts file to chain exports,
+// This allows us to pull all pages in one (big) line of code.
+import {
+    HomePage,
+    JobsPage,
+    AddJobPage,
+    EditJobPage,
+    NotFoundPage,
+    JobPage,
+    jobLoader,
+} from "./pages";
 
 // Here our components are being rendered. Note the props being passed into Hero.
 // We are also wrapping our app with a Router, which allows us to visit different pages!
@@ -74,7 +81,7 @@ const App = () => {
 
     // ROUTER ********************************************************
     // Used for providing html routes to different pages/components!
-    // With these routes it is possible to navigate to specific parts of the site, 
+    // With these routes it is possible to navigate to specific parts of the site,
     // including dynamic addresses
     const router = createBrowserRouter(
         createRoutesFromElements(
