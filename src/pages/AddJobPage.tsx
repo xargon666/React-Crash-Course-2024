@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { JobProps } from "../@types";
-const AddJobPage = ({ addJobSubmit }: any) => {
+
+const AddJobPage = ({ addJobSubmit }:any) => {
     const [title, setTitle] = useState("");
-    const [type, setType] = useState("");
+    const [type, setType] = useState("Full-Time");
     const [location, setLocation] = useState("");
     const [description, setDescription] = useState("");
-    const [salary, setSalary] = useState("");
+    const [salary, setSalary] = useState("Under $50K");
     const [companyName, setCompanyName] = useState("");
     const [companyDescription, setCompanyDescription] = useState("");
     const [contactEmail, setContactEmail] = useState("");
