@@ -57,27 +57,20 @@ const App = () => {
     };
 
     const updateJob = (job: JobProps) => {
-        console.log(job);
-        const edit = (job: JobProps) => {
-            axios
-                .put(`/api/jobs/${job.id}`, job)
-                .then(() => toast.success("Job updated successfully"))
-                .catch((err) => toast.error(err.message));
-        };
-        edit(job);
+        return axios
+            .put(`/api/jobs/${job.id}`, job)
+            .then(() => toast.success("Job updated successfully"))
+            .catch((err) => toast.error(err.message));
     };
 
     const deleteJob = (jobId: string) => {
-        const del = () => {
-            axios
-                .delete(`/api/jobs/${jobId}`)
-                .then(() => toast.success("Job deleted successfully"))
-                .catch((err) => toast.error(err.message));
-        };
-        del();
+        return axios
+            .delete(`/api/jobs/${jobId}`)
+            .then(() => toast.success("Job deleted successfully"))
+            .catch((err) => toast.error(err.message));
     };
 
-    // ROUTER ********************************************************************************
+    // ROUTER ********************************************************
     // Used for providing html routes to different pages/components!
     // With these routes it is possible to navigate to specific parts of the site, including dynamic addresses
     const router = createBrowserRouter(
@@ -85,15 +78,17 @@ const App = () => {
             <Route path="/" element={<MainLayout />}>
                 <Route index element={<HomePage />} />
                 <Route path="/jobs" element={<JobsPage />} />
+
+                {/* Note that the prop names must match what is in the end component, and won't throw an error if there is a mismatch... */}
                 <Route
                     path="/add-job"
-                    element={<AddJobPage addJob={addJob} />}
+                    element={<AddJobPage addJobSubmit={addJob} />}
                 />
-                
+
                 {/* The ":" symbol means the value is dynamic */}
                 <Route
                     path="/edit-job/:id"
-                    element={<EditJobPage updateJob={updateJob} />}
+                    element={<EditJobPage updateJobSubmit={updateJob} />}
                     loader={jobLoader}
                 />
                 <Route
@@ -102,7 +97,7 @@ const App = () => {
                     loader={jobLoader}
                 />
 
-                {/* path=/* (asterisk) is used as a catch-all, a default route for any address without a direct link */}
+                {/* "path=/*" (asterisk) is used as a catch-all, a default route for any address without a direct link */}
                 <Route path="/*" element={<NotFoundPage />} />
             </Route>
         )
