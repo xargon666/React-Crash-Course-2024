@@ -95,10 +95,10 @@ const App = () => {
                     element={<JobPage deleteJob={deleteJob} />}
                     loader={jobLoader}
                 />
-                <Route 
-                    path="/edit-job/:id" 
-                    element={<EditJobPage updateJob={updateJob}/>}
-                    loader={jobLoader} 
+                <Route
+                    path="/edit-job/:id"
+                    element={<EditJobPage updateJob={updateJob} />}
+                    loader={jobLoader}
                 />
 
                 {/* path=/* (asterisk) is used as a catch-all, a default route for any address without a direct link */}
